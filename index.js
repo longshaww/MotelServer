@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const port = 4000;
 
@@ -12,6 +13,9 @@ mongoose.connect("mongodb://localhost:27017/Motel", {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
+
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
 
 app.use(cors());
 app.get("/", (req, res) => {
