@@ -1,4 +1,5 @@
 const { Rooms } = require("../models/model");
+const cloudinary = require("../utils/cloudinary");
 
 const roomHome = async (req, res) => {
 	try {
@@ -19,6 +20,11 @@ const viewRoom = async (req, res) => {
 };
 
 const postRoom = async (req, res) => {
+	var image = await cloudinary.uploader.unsigned_upload(
+		req.file.path,
+		"oeaxhoph"
+	);
+	req.body.image = image.secure_url;
 	try {
 		const room = await Rooms.create(req.body);
 		res.json(room);

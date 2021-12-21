@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -15,7 +17,8 @@ mongoose.connect("mongodb://localhost:27017/Motel", {
 });
 
 app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use("/public", express.static("public"));
 
 app.use(cors());
 app.get("/", (req, res) => {
